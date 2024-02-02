@@ -1,0 +1,41 @@
+package com.example.springbootwebapp.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.springbootwebapp.model.Employee;
+import com.example.springbootwebapp.repository.EmployeeRepository;
+import com.example.springbootwebapp.service.EmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	private EmployeeRepository employeeRepository;
+
+	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+		super();
+		this.employeeRepository = employeeRepository;
+	}
+
+	@Override
+	public Employee saveEmployee(Employee e) {
+		return this.employeeRepository.save(e);
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		return employeeRepository.findAll();
+	}
+
+	@Override
+	public Employee getElementById(long id) {
+		Optional<Employee> emp = employeeRepository.findById(id);
+		if (emp.isPresent()) {
+			return emp.get();
+		}
+		return null;
+	}
+
+}
