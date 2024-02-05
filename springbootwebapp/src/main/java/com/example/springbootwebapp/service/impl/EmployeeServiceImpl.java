@@ -38,4 +38,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
+	@Override
+	public Employee updateEmployee(Employee e, long id) {
+		Optional<Employee> emp = employeeRepository.findById(id);
+		if (emp.isPresent()) {
+			emp.get().setFirstName(e.getFirstName());
+			emp.get().setLastName(e.getLastName());
+			emp.get().setEmail(e.getEmail());
+			employeeRepository.save(emp.get());
+			return emp.get();
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteEmployee(long id) {
+		Optional<Employee> emp = employeeRepository.findById(id);
+		if (emp.isPresent()) {
+			employeeRepository.deleteById(id);
+		}
+	}
+
 }
