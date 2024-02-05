@@ -39,7 +39,7 @@ public class EmployeeController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(name = "id") long id) {
-		return new ResponseEntity<Employee>(employeeService.getElementById(id), HttpStatus.OK);
+		return new ResponseEntity<Employee>(employeeService.getEmployeeById(id), HttpStatus.OK);
 	}
 
 	@PutMapping("{id}")
@@ -49,9 +49,9 @@ public class EmployeeController {
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<Employee> deleteEmployee(@PathVariable(name = "id") long id) {
+	public ResponseEntity<String> deleteEmployee(@PathVariable(name = "id") long id) {
 		employeeService.deleteEmployee(id);
-		return new ResponseEntity<Employee>(HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>("Employee deleted sucessfully", HttpStatus.ACCEPTED);
 	}
 
 }

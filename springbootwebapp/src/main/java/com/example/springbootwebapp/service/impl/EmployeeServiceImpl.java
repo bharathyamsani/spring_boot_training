@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.springbootwebapp.exception.ResourceNotFoundException;
 import com.example.springbootwebapp.model.Employee;
 import com.example.springbootwebapp.repository.EmployeeRepository;
 import com.example.springbootwebapp.service.EmployeeService;
@@ -30,12 +31,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee getElementById(long id) {
+	public Employee getEmployeeById(long id) {
 		Optional<Employee> emp = employeeRepository.findById(id);
 		if (emp.isPresent()) {
 			return emp.get();
 		}
-		return null;
+		throw new ResourceNotFoundException("Employee", "id", id);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeRepository.save(emp.get());
 			return emp.get();
 		}
-		return null;
+		throw new ResourceNotFoundException("Employee", "id", id);
 	}
 
 	@Override
@@ -57,6 +58,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (emp.isPresent()) {
 			employeeRepository.deleteById(id);
 		}
+		throw new ResourceNotFoundException("Employee", "id", id);
+	}
+
+	public boolean hasEmployee(long id) {
+		Optional<Employee> emp = employeeRepository.findById(id);
+		return emp.isPresent();
 	}
 
 }

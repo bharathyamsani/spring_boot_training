@@ -10,9 +10,11 @@ public interface EmployeeService {
 
 	List<Employee> getAllEmployees();
 
-	Employee getElementById(long id);
+	Employee getEmployeeById(long id);
 
 	Employee updateEmployee(Employee e, long id);
 
 	void deleteEmployee(long id);
+
+	boolean hasEmployee(long id);
 }
