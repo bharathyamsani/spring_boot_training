@@ -1,6 +1,7 @@
 package com.example.timestamp.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "stu_details")
 public class Student {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -75,16 +77,16 @@ public class Student {
 		this.course = course;
 	}
 
-	public LocalDateTime getCreated_on() {
-		return created_on;
+	public String getCreated_on() {
+		return created_on.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
 	}
 
 	public void setCreated_on(LocalDateTime created_on) {
 		this.created_on = created_on;
 	}
 
-	public LocalDateTime getUpdated_on() {
-		return updated_on;
+	public String getUpdated_on() {
+		return updated_on.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
 	}
 
 	public void setUpdated_on(LocalDateTime updated_on) {
