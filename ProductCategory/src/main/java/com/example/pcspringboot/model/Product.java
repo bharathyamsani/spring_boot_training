@@ -1,5 +1,7 @@
 package com.example.pcspringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ public class Product {
 	private String productName;
 	@Column(name = "productPrice")
 	private float productPrice;
+	@JsonIgnoreProperties("products")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoryId")
 	private Category category;

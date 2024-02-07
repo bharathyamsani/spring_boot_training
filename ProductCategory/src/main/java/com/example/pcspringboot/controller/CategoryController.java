@@ -22,12 +22,12 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping
-	public Category addProduct(@RequestBody Category category) {
+	public Category addCategory(@RequestBody Category category) {
 		return categoryService.addCategory(category);
 	}
 
 	@GetMapping
-	public List<Category> getAllProducts() {
+	public List<Category> getAllCategories() {
 		return categoryService.getAllCategories();
 	}
 

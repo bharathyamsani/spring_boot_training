@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.pcspringboot.Repository.CategoryRepository;
 import com.example.pcspringboot.Repository.ProductRepository;
+import com.example.pcspringboot.model.Category;
 import com.example.pcspringboot.model.Product;
 import com.example.pcspringboot.service.ProductService;
 
@@ -14,9 +16,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public Product addProduct(Product p) {
+		Category pc = categoryRepository.findById(p.getCategory().getCategoryId()).get();
+		p.setCategory(pc);
 		return productRepository.save(p);
 	}
 
@@ -34,7 +40,8 @@ public class ProductServiceImpl implements ProductService {
 	public Product updateProduct(long id, Product p) {
 		Product pp = getProduct(id);
 		pp.setProductName(p.getProductName());
-		pp.setCategory(p.getCategory());
+		Category pc = categoryRepository.findById(p.getCategory().getCategoryId()).get();
+		pp.setCategory(pc);
 		pp.setProductPrice(p.getProductPrice());
 		return productRepository.save(pp);
 	}

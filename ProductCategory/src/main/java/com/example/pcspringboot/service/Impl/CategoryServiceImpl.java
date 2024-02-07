@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.pcspringboot.Repository.CategoryRepository;
 import com.example.pcspringboot.model.Category;
+import com.example.pcspringboot.model.Product;
 import com.example.pcspringboot.service.CategoryService;
 
 @Service
@@ -17,6 +18,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category addCategory(Category c) {
+		for (Product p : c.getProducts()) {
+			p.setCategory(c);
+		}
 		return categoryRepository.save(c);
 	}
 
