@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springbootwebapp.model.Employee;
+import com.example.springbootwebapp.dto.EmployeeDto;
 import com.example.springbootwebapp.service.EmployeeService;
 
 @RestController
@@ -28,23 +28,24 @@ public class EmployeeController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
-		return new ResponseEntity<Employee>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
+	public ResponseEntity<EmployeeDto> saveEmployee(@RequestBody EmployeeDto employee) {
+		return new ResponseEntity<EmployeeDto>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public List<Employee> getAllEMployees() {
+	public List<EmployeeDto> getAllEMployees() {
 		return employeeService.getAllEmployees();
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable(name = "id") long id) {
-		return new ResponseEntity<Employee>(employeeService.getEmployeeById(id), HttpStatus.OK);
+	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable(name = "id") long id) {
+		return new ResponseEntity<EmployeeDto>(employeeService.getEmployeeById(id), HttpStatus.OK);
 	}
 
 	@PutMapping("{id}")
-	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable(name = "id") long id) {
-		return new ResponseEntity<Employee>(employeeService.updateEmployee(employee, id), HttpStatus.OK);
+	public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employee,
+			@PathVariable(name = "id") long id) {
+		return new ResponseEntity<EmployeeDto>(employeeService.updateEmployee(employee, id), HttpStatus.OK);
 
 	}
 

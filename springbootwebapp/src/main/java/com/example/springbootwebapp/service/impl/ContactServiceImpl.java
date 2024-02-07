@@ -10,11 +10,15 @@ import com.example.springbootwebapp.exception.ResourceNotFoundException;
 import com.example.springbootwebapp.model.Contact;
 import com.example.springbootwebapp.model.Employee;
 import com.example.springbootwebapp.repository.ContactRepository;
+import com.example.springbootwebapp.repository.EmployeeRepository;
 import com.example.springbootwebapp.service.ContactService;
 import com.example.springbootwebapp.service.EmployeeService;
 
 @Service
 public class ContactServiceImpl implements ContactService {
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -27,7 +31,7 @@ public class ContactServiceImpl implements ContactService {
 		Employee e = c.getEmp();
 		long id = e.getId();
 		if (employeeService.hasEmployee(id)) {
-			c.setEmp(employeeService.getEmployeeById(id));
+			c.setEmp(employeeRepository.findById(id).get());
 			return contactRepository.save(c);
 
 		} else

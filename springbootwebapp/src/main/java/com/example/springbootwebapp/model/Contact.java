@@ -13,31 +13,25 @@ import jakarta.persistence.Table;
 @Table(name = "contact_info")
 public class Contact {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	@Column(name = "phoneNo", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long contactId;
+	@Column(name = "phoneNo")
 	private long phoneNo;
 	@OneToOne
-	@JoinColumn(name = "emp_id")
+	@JoinColumn(name = "employee_id")
 	private Employee emp;
 
 	public Contact() {
 		super();
 	}
 
-	public Contact(long id, Employee emp, long phoneNo) {
-		super();
-		this.id = id;
-		this.emp = emp;
-		this.phoneNo = phoneNo;
+	public long getContactId() {
+		return contactId;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+	public void setContactId(long contactId) {
+		this.contactId = contactId;
 	}
 
 	public Employee getEmp() {

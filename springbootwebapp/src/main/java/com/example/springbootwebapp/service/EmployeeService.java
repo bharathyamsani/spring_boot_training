@@ -2,17 +2,17 @@ package com.example.springbootwebapp.service;
 
 import java.util.List;
 
-import com.example.springbootwebapp.model.Employee;
+import com.example.springbootwebapp.dto.EmployeeDto;
 
 public interface EmployeeService {
 
-	Employee saveEmployee(Employee e);
+	EmployeeDto saveEmployee(EmployeeDto e);
 
-	List<Employee> getAllEmployees();
+	List<EmployeeDto> getAllEmployees();
 
-	Employee getEmployeeById(long id);
+	EmployeeDto getEmployeeById(long id);
 
-	Employee updateEmployee(Employee e, long id);
+	EmployeeDto updateEmployee(EmployeeDto e, long id);
 
 	void deleteEmployee(long id);
 
