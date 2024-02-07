@@ -1,6 +1,8 @@
 package com.example.springbootwebapp.controller;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootwebapp.model.Contact;
 import com.example.springbootwebapp.service.ContactService;
+import com.example.springbootwebapp.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api/contact")
@@ -23,6 +26,9 @@ public class ContactController {
 
 	@Autowired
 	private ContactService contactService;
+
+	@Autowired
+	private EmployeeService employeeService;
 
 	@GetMapping
 	public List<Contact> getAllContacts() {
@@ -48,5 +54,15 @@ public class ContactController {
 	public ResponseEntity<String> deleteContact(long id) {
 		contactService.deleteContact(id);
 		return new ResponseEntity<>("Row deleted successfully!", HttpStatus.OK);
+	}
+
+	@GetMapping("/employee")
+	public List<Map<String, Object>> joinEmpCon() throws SQLException {
+		return employeeService.joinEmpCon();
+	}
+
+	@GetMapping(value = { "/department/employee", "/employee/department" })
+	public List<Map<String, Object>> joinEmpDeptCon() throws SQLException {
+		return employeeService.joinEmpDeptCon();
 	}
 }

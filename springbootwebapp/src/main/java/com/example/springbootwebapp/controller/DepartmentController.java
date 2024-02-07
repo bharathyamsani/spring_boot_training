@@ -1,6 +1,8 @@
 package com.example.springbootwebapp.controller;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootwebapp.model.Department;
 import com.example.springbootwebapp.service.DepartmentService;
+import com.example.springbootwebapp.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api/department")
@@ -23,6 +26,9 @@ public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
+
+	@Autowired
+	private EmployeeService employeeService;
 
 	@PostMapping()
 	public ResponseEntity<Department> saveEmployee(@RequestBody Department d) {
@@ -49,6 +55,16 @@ public class DepartmentController {
 	public ResponseEntity<String> deleteEmployee(@PathVariable(name = "id") long id) {
 		departmentService.deleteDepartment(id);
 		return new ResponseEntity<String>("Employee deleted sucessfully", HttpStatus.ACCEPTED);
+	}
+
+	@GetMapping("/employee")
+	public List<Map<String, Object>> joinEmpDept() throws SQLException {
+		return employeeService.joinEmpDept();
+	}
+
+	@GetMapping(value = { "/employee/contact", "/contact/employee" })
+	public List<Map<String, Object>> joinEmpDeptCon() throws SQLException {
+		return employeeService.joinEmpDeptCon();
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.example.springbootwebapp.controller;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import com.example.springbootwebapp.dto.EmployeeDto;
 import com.example.springbootwebapp.service.EmployeeService;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
 	private EmployeeService employeeService;
@@ -53,6 +55,21 @@ public class EmployeeController {
 	public ResponseEntity<String> deleteEmployee(@PathVariable(name = "id") long id) {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<String>("Employee deleted sucessfully", HttpStatus.ACCEPTED);
+	}
+
+	@GetMapping("/department")
+	public List<Map<String, Object>> joinEmpDept() throws SQLException {
+		return employeeService.joinEmpDept();
+	}
+
+	@GetMapping("/contact")
+	public List<Map<String, Object>> joinEmpCon() throws SQLException {
+		return employeeService.joinEmpCon();
+	}
+
+	@GetMapping(value = { "/department/contact", "/contact/department" })
+	public List<Map<String, Object>> joinEmpDeptCon() throws SQLException {
+		return employeeService.joinEmpCon();
 	}
 
 }
