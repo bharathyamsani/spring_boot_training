@@ -2,15 +2,16 @@ package com.example.pcspringboot.service;
 
 import java.util.List;
 
+import com.example.pcspringboot.dto.CategoryDto;
 import com.example.pcspringboot.model.Category;
 
 public interface CategoryService {
 
 	Category addCategory(Category c);
 
-	List<Category> getAllCategories();
+	List<CategoryDto> getAllCategories();
 
-	Category getCategory(long id);
+	CategoryDto getCategory(long id);
 
 	Category updateCategory(long id, Category c);
 

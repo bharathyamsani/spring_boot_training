@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.pcspringboot.Repository.CategoryRepository;
 import com.example.pcspringboot.Repository.ProductRepository;
+import com.example.pcspringboot.dto.ProductDto;
+import com.example.pcspringboot.mapper.ProductMapper;
 import com.example.pcspringboot.model.Category;
 import com.example.pcspringboot.model.Product;
 import com.example.pcspringboot.service.ProductService;
@@ -18,6 +20,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductMapper productMapper;
 
 	@Override
 	public Product addProduct(Product p) {
@@ -27,18 +31,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+	public List<ProductDto> getAllProducts() {
+		return productMapper.getListDto(productRepository.findAll());
 	}
 
 	@Override
-	public Product getProduct(long id) {
-		return productRepository.findById(id).get();
+	public ProductDto getProduct(long id) {
+		return productMapper.getProductDto(productRepository.findById(id).get());
 	}
 
 	@Override
 	public Product updateProduct(long id, Product p) {
-		Product pp = getProduct(id);
+		Product pp = productRepository.findById(id).get();
 		pp.setProductName(p.getProductName());
 		Category pc = categoryRepository.findById(p.getCategory().getCategoryId()).get();
 		pp.setCategory(pc);

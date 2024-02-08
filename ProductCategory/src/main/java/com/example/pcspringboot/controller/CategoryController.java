@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pcspringboot.dto.CategoryDto;
 import com.example.pcspringboot.model.Category;
 import com.example.pcspringboot.service.CategoryService;
 
@@ -27,12 +28,12 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<Category> getAllCategories() {
+	public List<CategoryDto> getAllCategories() {
 		return categoryService.getAllCategories();
 	}
 
 	@GetMapping("{id}")
-	public Category getCategory(@PathVariable long id) {
+	public CategoryDto getCategory(@PathVariable long id) {
 		return categoryService.getCategory(id);
 	}
 
